@@ -46,6 +46,13 @@
   <button v-on:click="reverseMessage">Reverse Message</button>
 </div>
 
+<div id="app-6">
+  <!-- テキストボックスに入力した値が表示される -->
+  <h2>app6</h2>
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+
 </body>
 
 </html>
@@ -92,6 +99,13 @@
       reverseMessage: function () {
         this.message = this.message.split('').reverse().join('')
       }
+    }
+  })
+
+  var app6 = new Vue({
+    el: '#app-6',
+    data: {
+      message: 'Hello Vue!'
     }
   })
 </script>
