@@ -33,6 +33,11 @@
             v-bind:issue="post.id"
             v-bind:title="post.title"
     ></blog-post>
+
+    <blog-post2
+            v-for="post in posts"
+            v-bind:post="post"
+    ></blog-post2>
 </div>
 
 </body>
@@ -76,6 +81,16 @@
       title: String
     },
     template: '<h3>{{ issue }} {{ title }}</h3>'
+  })
+
+  Vue.component('blog-post2', {
+    props: ['post'],
+    template: `
+    <div class="blog-post">
+      <h3>{{ post.id }}： {{ post.title }}</h3>
+      <div v-html="post.content"></div>
+    </div>
+  `
   })
 
   new Vue({
