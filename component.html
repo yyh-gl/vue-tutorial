@@ -1,0 +1,91 @@
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue Tutorial</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+    <h2>app</h2>
+    <ol>
+        <!--
+          各 todo-item の内容を表す todo オブジェクトを与えます。
+          これにより内容は動的に変化します。
+          また後述する "key" を各コンポーネントに提供する必要があります。
+        -->
+        <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+    </ol>
+</div>
+
+<div id="components-demo">
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+</div>
+
+<div id="blog-post-demo">
+    <blog-post
+            v-for="post in posts"
+            v-bind:issue="post.id"
+            v-bind:title="post.title"
+    ></blog-post>
+</div>
+
+</body>
+
+</html>
+
+<script>
+  Vue.component('todo-item', {
+    // todo-item コンポーネントはカスタム属性のような "プロパティ" で受け取ります。
+    // このプロパティは todo と呼ばれます。
+    props: ['todo'],
+    template: '<li>{{ todo.text }}</li>'
+  })
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      groceryList: [
+        { id: 0, text: 'Vegetables' },
+        { id: 1, text: 'Cheese' },
+        { id: 2, text: 'Whatever else humans are supposed to eat' }
+      ]
+    }
+  })
+
+  // button-counter と呼ばれる新しいコンポーネントを定義します
+  Vue.component('button-counter', {
+    data: function () {
+      return {
+        count: 0
+      }
+    },
+    template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+  })
+
+  new Vue({ el: '#components-demo' })
+
+  Vue.component('blog-post', {
+    props: {
+      issue: Number,
+      title: String
+    },
+    template: '<h3>{{ issue }} {{ title }}</h3>'
+  })
+
+  new Vue({
+    el: '#blog-post-demo',
+    data: {
+      posts: [
+        { id: 1, title: 'My journey with Vue' },
+        { id: 2, title: 'Blogging with Vue' },
+        { id: 3, title: 'Why Vue is so fun' }
+      ]
+    }
+  })
+</script>
